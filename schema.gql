@@ -1,0 +1,610 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  id: ID!
+  title: String
+  contents: String
+  users(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: UserFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [UserSort!]! = []
+  ): PostUsersConnection!
+}
+
+input CursorPaging {
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
+}
+
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
+input UserFilter {
+  and: [UserFilter!]
+  or: [UserFilter!]
+  id: IDFilterComparison
+  username: StringFieldComparison
+  displayName: StringFieldComparison
+  avatarUrl: StringFieldComparison
+}
+
+input IDFilterComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: ID
+  neq: ID
+  gt: ID
+  gte: ID
+  lt: ID
+  lte: ID
+  like: ID
+  notLike: ID
+  iLike: ID
+  notILike: ID
+  in: [ID!]
+  notIn: [ID!]
+}
+
+input StringFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: String
+  neq: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  like: String
+  notLike: String
+  iLike: String
+  notILike: String
+  in: [String!]
+  notIn: [String!]
+}
+
+input UserSort {
+  field: UserSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum UserSortFields {
+  id
+  username
+  displayName
+  avatarUrl
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+type UserSetting {
+  id: ID!
+  receiveNotifications: String!
+  receiveEmails: String!
+  receiveSMS: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  username: String
+  displayName: String
+  avatarUrl: String
+  posts(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: PostFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [PostSort!]! = []
+  ): UserPostsConnection!
+  settings(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: UserSettingFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [UserSettingSort!]! = []
+  ): UserSettingsConnection!
+}
+
+input PostFilter {
+  and: [PostFilter!]
+  or: [PostFilter!]
+  id: IDFilterComparison
+  title: StringFieldComparison
+  contents: StringFieldComparison
+}
+
+input PostSort {
+  field: PostSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum PostSortFields {
+  id
+  title
+  contents
+}
+
+input UserSettingFilter {
+  and: [UserSettingFilter!]
+  or: [UserSettingFilter!]
+  id: IDFilterComparison
+  receiveNotifications: StringFieldComparison
+  receiveEmails: StringFieldComparison
+  receiveSMS: StringFieldComparison
+}
+
+input UserSettingSort {
+  field: UserSettingSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum UserSettingSortFields {
+  id
+  receiveNotifications
+  receiveEmails
+  receiveSMS
+}
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+type UserDeleteResponse {
+  id: ID
+  username: String
+  displayName: String
+  avatarUrl: String
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+type UserEdge {
+  """The node containing the User"""
+  node: User!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type PageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
+
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+}
+
+type UserConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [UserEdge!]!
+}
+
+type UserSettingEdge {
+  """The node containing the UserSetting"""
+  node: UserSetting!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type UserSettingsConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [UserSettingEdge!]!
+}
+
+type PostEdge {
+  """The node containing the Post"""
+  node: Post!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type UserPostsConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [PostEdge!]!
+}
+
+type UserSettingDeleteResponse {
+  id: ID
+  receiveNotifications: String
+  receiveEmails: String
+  receiveSMS: String
+}
+
+type UserSettingConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [UserSettingEdge!]!
+}
+
+type PostDeleteResponse {
+  id: ID
+  title: String
+  contents: String
+}
+
+type PostConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [PostEdge!]!
+}
+
+type PostUsersConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [UserEdge!]!
+}
+
+input PostDto {
+  id: ID!
+  title: String
+  contents: String
+}
+
+input UserSettingDto {
+  id: ID!
+  receiveNotifications: String!
+  receiveEmails: String!
+  receiveSMS: String!
+}
+
+input UserDto {
+  id: ID!
+  username: String
+  displayName: String
+  avatarUrl: String
+}
+
+type Query {
+  user(
+    """The id of the record to find."""
+    id: ID!
+  ): User!
+  users(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: UserFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [UserSort!]! = []
+  ): UserConnection!
+  userSetting(
+    """The id of the record to find."""
+    id: ID!
+  ): UserSetting!
+  userSettings(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: UserSettingFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [UserSettingSort!]! = []
+  ): UserSettingConnection!
+  post(
+    """The id of the record to find."""
+    id: ID!
+  ): Post!
+  posts(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: PostFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [PostSort!]! = []
+  ): PostConnection!
+}
+
+type Mutation {
+  addSettingsToUser(input: AddSettingsToUserInput!): User!
+  setSettingsOnUser(input: SetSettingsOnUserInput!): User!
+  createOneUser(input: CreateOneUserInput!): User!
+  createManyUsers(input: CreateManyUsersInput!): [User!]!
+  updateOneUser(input: UpdateOneUserInput!): User!
+  updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
+  deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
+  deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
+  setUserOnUserSetting(input: SetUserOnUserSettingInput!): UserSetting!
+  createOneUserSetting(input: CreateOneUserSettingInput!): UserSetting!
+  createManyUserSettings(input: CreateManyUserSettingsInput!): [UserSetting!]!
+  updateOneUserSetting(input: UpdateOneUserSettingInput!): UserSetting!
+  updateManyUserSettings(input: UpdateManyUserSettingsInput!): UpdateManyResponse!
+  deleteOneUserSetting(input: DeleteOneUserSettingInput!): UserSettingDeleteResponse!
+  deleteManyUserSettings(input: DeleteManyUserSettingsInput!): DeleteManyResponse!
+  createOnePost(input: CreateOnePostInput!): Post!
+  createManyPosts(input: CreateManyPostsInput!): [Post!]!
+  updateOnePost(input: UpdateOnePostInput!): Post!
+  updateManyPosts(input: UpdateManyPostsInput!): UpdateManyResponse!
+  deleteOnePost(input: DeleteOnePostInput!): PostDeleteResponse!
+  deleteManyPosts(input: DeleteManyPostsInput!): DeleteManyResponse!
+}
+
+input AddSettingsToUserInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetSettingsOnUserInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input CreateOneUserInput {
+  """The record to create"""
+  user: CreateUser!
+}
+
+input CreateUser {
+  id: ID!
+  username: String
+  displayName: String
+  avatarUrl: String
+}
+
+input CreateManyUsersInput {
+  """Array of records to create"""
+  users: [CreateUser!]!
+}
+
+input UpdateOneUserInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateUser!
+}
+
+input UpdateUser {
+  id: ID
+  username: String
+  displayName: String
+  avatarUrl: String
+}
+
+input UpdateManyUsersInput {
+  """Filter used to find fields to update"""
+  filter: UserUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateUser!
+}
+
+input UserUpdateFilter {
+  and: [UserUpdateFilter!]
+  or: [UserUpdateFilter!]
+  id: IDFilterComparison
+  username: StringFieldComparison
+  displayName: StringFieldComparison
+  avatarUrl: StringFieldComparison
+}
+
+input DeleteOneUserInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyUsersInput {
+  """Filter to find records to delete"""
+  filter: UserDeleteFilter!
+}
+
+input UserDeleteFilter {
+  and: [UserDeleteFilter!]
+  or: [UserDeleteFilter!]
+  id: IDFilterComparison
+  username: StringFieldComparison
+  displayName: StringFieldComparison
+  avatarUrl: StringFieldComparison
+}
+
+input SetUserOnUserSettingInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input CreateOneUserSettingInput {
+  """The record to create"""
+  userSetting: CreateUserSetting!
+}
+
+input CreateUserSetting {
+  id: ID!
+  receiveNotifications: String!
+  receiveEmails: String!
+  receiveSMS: String!
+}
+
+input CreateManyUserSettingsInput {
+  """Array of records to create"""
+  userSettings: [CreateUserSetting!]!
+}
+
+input UpdateOneUserSettingInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateUserSetting!
+}
+
+input UpdateUserSetting {
+  id: ID
+  receiveNotifications: String
+  receiveEmails: String
+  receiveSMS: String
+}
+
+input UpdateManyUserSettingsInput {
+  """Filter used to find fields to update"""
+  filter: UserSettingUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateUserSetting!
+}
+
+input UserSettingUpdateFilter {
+  and: [UserSettingUpdateFilter!]
+  or: [UserSettingUpdateFilter!]
+  id: IDFilterComparison
+  receiveNotifications: StringFieldComparison
+  receiveEmails: StringFieldComparison
+  receiveSMS: StringFieldComparison
+}
+
+input DeleteOneUserSettingInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyUserSettingsInput {
+  """Filter to find records to delete"""
+  filter: UserSettingDeleteFilter!
+}
+
+input UserSettingDeleteFilter {
+  and: [UserSettingDeleteFilter!]
+  or: [UserSettingDeleteFilter!]
+  id: IDFilterComparison
+  receiveNotifications: StringFieldComparison
+  receiveEmails: StringFieldComparison
+  receiveSMS: StringFieldComparison
+}
+
+input CreateOnePostInput {
+  """The record to create"""
+  post: CreatePost!
+}
+
+input CreatePost {
+  id: ID!
+  title: String
+  contents: String
+}
+
+input CreateManyPostsInput {
+  """Array of records to create"""
+  posts: [CreatePost!]!
+}
+
+input UpdateOnePostInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdatePost!
+}
+
+input UpdatePost {
+  id: ID
+  title: String
+  contents: String
+}
+
+input UpdateManyPostsInput {
+  """Filter used to find fields to update"""
+  filter: PostUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdatePost!
+}
+
+input PostUpdateFilter {
+  and: [PostUpdateFilter!]
+  or: [PostUpdateFilter!]
+  id: IDFilterComparison
+  title: StringFieldComparison
+  contents: StringFieldComparison
+}
+
+input DeleteOnePostInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyPostsInput {
+  """Filter to find records to delete"""
+  filter: PostDeleteFilter!
+}
+
+input PostDeleteFilter {
+  and: [PostDeleteFilter!]
+  or: [PostDeleteFilter!]
+  id: IDFilterComparison
+  title: StringFieldComparison
+  contents: StringFieldComparison
+}

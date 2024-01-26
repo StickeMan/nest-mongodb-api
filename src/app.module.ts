@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import config from './common/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import config, { ConfigEnum } from './common/config';
 import { DatabaseModule } from './common/database/database.module';
+import { GraphqlModule } from './common/graphql/graphql.module';
 import { CommonModule } from './common/common.module';
 import { SystemModule } from './system/system.module';
 
@@ -12,10 +13,21 @@ import { SystemModule } from './system/system.module';
       envFilePath: `${process.env.NODE_ENV}.env`,
     }),
     DatabaseModule,
+    GraphqlModule,
     CommonModule,
     SystemModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  public static PORT: number;
+  public static HOST: string;
+  public static PROTOCOL: string;
+
+  constructor(private readonly _config: ConfigService) {
+    AppModule.PORT = this._config.get<number>(ConfigEnum.APP_PORT);
+    AppModule.HOST = this._config.get<string>(ConfigEnum.APP_HOST);
+    AppModule.PROTOCOL = this._config.get<string>(ConfigEnum.APP_HTTP_PROTOCOL);
+  }
+}
